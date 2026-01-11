@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="View daily mess menu for NITT hostels - Breakfast, Lunch, Snacks, and Dinner">
+    <meta name="theme-color" content="#6c5ce7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NITT Menu">
+    
+    <title>NITT Mess Menu</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Install Prompt Banner -->
+    <div id="installBanner" class="install-banner hidden">
+        <div class="install-content">
+            <div class="install-icon">📱</div>
+            <div class="install-text">
+                <div class="install-title">Install App</div>
+                <div class="install-subtitle">Add to Home Screen for quick access</div>
+            </div>
+            <button id="installBtn" class="install-btn">Install</button>
+            <button id="closeBanner" class="close-btn">✕</button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🍽️</div>
+                    <div class="logo-text">
+                        <h1>NITT Mess Menu</h1>
+                        <p class="tagline">National Institute of Technology Trichy</p>
+                    </div>
+                </div>
+                <button id="notificationBtn" class="notification-btn" title="Enable Notifications">
+                    <span class="notification-icon">🔔</span>
+                    <span class="notification-status">Off</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <!-- Mess Selector -->
+            <div class="filter-group">
+                <label for="messSelector" class="filter-label">Select Mess</label>
+                <div class="select-wrapper">
+                    <select id="messSelector" class="mess-selector">
+                        <option value="annapurna">Annapurna</option>
+                        <option value="sabari">Sabari</option>
+                        <option value="mm1gf">MM1 GF</option>
+                        <option value="mm2gf">MM2 GF</option>
+                        <option value="mm1ff">MM1 FF</option>
+                        <option value="mm2ff">MM2 FF</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                </div>
+            </div>
+
+            <!-- Day Selector (Horizontal Scroll) -->
+            <div class="filter-group">
+                <label class="filter-label">Select Day</label>
+                <div class="day-selector">
+                    <button class="day-btn" data-day="monday">
+                        <span class="day-short">Mon</span>
+                        <span class="day-full">Monday</span>
+                    </button>
+                    <button class="day-btn" data-day="tuesday">
+                        <span class="day-short">Tue</span>
+                        <span class="day-full">Tuesday</span>
+                    </button>
+                    <button class="day-btn" data-day="wednesday">
+                        <span class="day-short">Wed</span>
+                        <span class="day-full">Wednesday</span>
+                    </button>
+                    <button class="day-btn" data-day="thursday">
+                        <span class="day-short">Thu</span>
+                        <span class="day-full">Thursday</span>
+                    </button>
+                    <button class="day-btn" data-day="friday">
+                        <span class="day-short">Fri</span>
+                        <span class="day-full">Friday</span>
+                    </button>
+                    <button class="day-btn" data-day="saturday">
+                        <span class="day-short">Sat</span>
+                        <span class="day-full">Saturday</span>
+                    </button>
+                    <button class="day-btn" data-day="sunday">
+                        <span class="day-short">Sun</span>
+                        <span class="day-full">Sunday</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state hidden">
+            <div class="spinner"></div>
+            <p>Loading menu...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state hidden">
+            <div class="error-icon">⚠️</div>
+            <h3>Unable to Load Menu</h3>
+            <p id="errorMessage">Please check your connection and try again</p>
+            <button id="retryBtn" class="retry-btn">Retry</button>
+        </div>
+
+        <!-- Offline Banner -->
+        <div id="offlineBanner" class="offline-banner hidden">
+            <span class="offline-icon">📡</span>
+            <span>Showing cached menu - You're offline</span>
+        </div>
+
+        <!-- Menu Container -->
+        <main id="menuContainer" class="menu-container">
+            <!-- Meal cards will be dynamically inserted here -->
+            <!-- Example structure:
+            <div class="meal-card">
+                <div class="meal-header">
+                    <span class="meal-icon">🌅</span>
+                    <div class="meal-info">
+                        <h3 class="meal-name">Breakfast</h3>
+                        <span class="meal-time">7:30 AM - 9:30 AM</span>
+                    </div>
+                </div>
+                <div class="meal-items">
+                    <div class="item">Idli</div>
+                    <div class="item">Sambar</div>
+                    <div class="item">Chutney</div>
+                </div>
+            </div>
+            -->
+        </main>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state hidden">
+            <div class="empty-icon">🍽️</div>
+            <h3>No Menu Available</h3>
+            <p>Menu data not found for this day</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Last updated: <span id="lastUpdated">Never</span></p>
+            <p class="footer-note">Menu may vary. Check with mess staff for updates.</p>
+            <button id="refreshBtn" class="refresh-btn">
+                <span class="refresh-icon">🔄</span> Refresh Menu
+            </button>
+        </footer>
+    </div>
+
+    <!-- Notification Permission Modal -->
+    <div id="notificationModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Enable Notifications?</h3>
+                <button class="modal-close" id="closeModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Get notified about:</p>
+                <ul class="notification-features">
+                    <li>📅 Daily menu updates</li>
+                    <li>⏰ Meal time reminders</li>
+                    <li>🆕 Menu changes</li>
+                </ul>
+                <p class="modal-note">You can disable this anytime from settings</p>
+            </div>
+            <div class="modal-actions">
+                <button id="enableNotifications" class="btn-primary">Enable</button>
+                <button id="cancelNotifications" class="btn-secondary">Not Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
