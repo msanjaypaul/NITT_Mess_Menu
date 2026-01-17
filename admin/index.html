@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NITT Mess Menu Admin Panel">
+    <meta name="theme-color" content="#004E89">
+    
+    <title>NITT Mess - Admin Panel</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="admin-title">Admin Panel</h1>
+                <p class="admin-subtitle">Menu Management</p>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-section="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-btn" data-section="menu-editor">
+                    <span class="nav-icon">📝</span>
+                    <span>Edit Menu</span>
+                </button>
+                <button class="nav-btn" data-section="mess-manager">
+                    <span class="nav-icon">🏪</span>
+                    <span>Manage Messes</span>
+                </button>
+                <button class="nav-btn" data-section="export-import">
+                    <span class="nav-icon">⬇️</span>
+                    <span>Export/Import</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <p class="version">v1.0.0</p>
+                <p class="timestamp" id="lastUpdate">Last updated: Never</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-admin">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <h2 id="sectionTitle">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <button class="btn-sync" id="syncBtn" title="Sync to app">🔄 Publish</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Messes</div>
+                        <div class="stat-value" id="totalMesses">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Menu Entries</div>
+                        <div class="stat-value" id="totalMenus">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Last Updated</div>
+                        <div class="stat-value" id="lastUpdateTime">--:--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Cache Status</div>
+                        <div class="stat-value" id="cacheStatus">✓ OK</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="btn-action" onclick="goToSection('menu-editor')">
+                            📝 Add/Edit Menu
+                        </button>
+                        <button class="btn-action" onclick="goToSection('mess-manager')">
+                            🏪 Manage Messes
+                        </button>
+                        <button class="btn-action" onclick="goToSection('export-import')">
+                            📦 Backup Data
+                        </button>
+                        <button class="btn-action btn-danger" onclick="clearAllData()">
+                            🗑️ Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>Recent Menu Updates</h3>
+                    <div id="recentUpdates" class="recent-list">
+                        <p class="placeholder">No updates yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Editor Section -->
+            <section id="menu-editor" class="admin-section">
+                <div class="editor-container">
+                    <div class="editor-sidebar">
+                        <h3>Select Mess & Day</h3>
+                        <div class="form-group">
+                            <label>Mess</label>
+                            <select id="editorMessSelect" class="form-select">
+                                <option value="">Select a mess...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Day</label>
+                            <select id="editorDaySelect" class="form-select">
+                                <option value="">Select a day...</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="loadMenuForEdit()">Load Menu</button>
+                    </div>
+
+                    <div class="editor-main">
+                        <h3>Menu Items</h3>
+                        <div id="mealEditors" class="meal-editors">
+                            <!-- Meal types will be added here -->
+                        </div>
+                        <button class="btn-primary btn-large" onclick="saveMenuChanges()">💾 Save Changes</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mess Manager Section -->
+            <section id="mess-manager" class="admin-section">
+                <div class="mess-manager-container">
+                    <h3>Manage Messes</h3>
+                    
+                    <div class="add-mess-form">
+                        <div class="form-group">
+                            <label>Mess ID</label>
+                            <input type="text" id="messId" class="form-input" placeholder="e.g., annapurna">
+                        </div>
+                        <div class="form-group">
+                            <label>Mess Name</label>
+                            <input type="text" id="messName" class="form-input" placeholder="e.g., Annapurna">
+                        </div>
+                        <button class="btn-primary" onclick="addMess()">➕ Add Mess</button>
+                    </div>
+
+                    <div class="mess-list">
+                        <h4>Existing Messes</h4>
+                        <div id="messesList" class="list-items">
+                            <!-- Messes will be listed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Export/Import Section -->
+            <section id="export-import" class="admin-section">
+                <div class="export-import-container">
+                    <div class="export-section">
+                        <h3>📤 Export Data</h3>
+                        <p>Download all menu data as JSON file for backup</p>
+                        <button class="btn-primary" onclick="exportData()">
+                            Download JSON
+                        </button>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="import-section">
+                        <h3>📥 Import Data</h3>
+                        <p>Upload a JSON file to restore menu data</p>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="importFile" accept=".json" class="file-input">
+                            <label for="importFile" class="file-label">
+                                Choose JSON File
+                            </label>
+                        </div>
+                        <button class="btn-primary" onclick="importData()">
+                            Upload & Restore
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast" style="display: none;"></div>
+
+    <!-- Confirm Dialog -->
+    <div id="confirmDialog" class="confirm-dialog" style="display: none;">
+        <div class="confirm-content">
+            <h3 id="confirmTitle">Confirm Action</h3>
+            <p id="confirmMessage">Are you sure?</p>
+            <div class="confirm-buttons">
+                <button class="btn-secondary" onclick="cancelConfirm()">Cancel</button>
+                <button class="btn-danger" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-storage.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

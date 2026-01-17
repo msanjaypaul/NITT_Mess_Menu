@@ -1,0 +1,40 @@
+{
+  "name": "NITT Mess Menu",
+  "short_name": "NITT Mess",
+  "description": "Get your daily mess meal schedule at NIT Trichy",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#A8DF8E",
+  "background_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "../Logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../Logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "productivity"],
+  "screenshots": [
+    {
+      "src": "./assets/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "./assets/screenshot-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
