@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Daily Gamble</title>
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <img src="logo.png" alt="Daily Gamble Logo" class="login-logo">
+            <h1 class="login-title">Admin Dashboard</h1>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="demo-info">Demo: admin / admin123</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="admin-dashboard hidden">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <h1 class="dashboard-title">🍽️ Daily Gamble - Admin</h1>
+                <button id="logout-btn" class="btn-logout">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" data-section="menu-management">
+                        📋 Menu Management
+                    </button>
+                    <button class="nav-item" data-section="analytics">
+                        📊 Analytics
+                    </button>
+                    <button class="nav-item" data-section="settings">
+                        ⚙️ Settings
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Main Panel -->
+            <main class="main-panel">
+                <!-- Menu Management Section -->
+                <section id="menu-management" class="panel-section active">
+                    <h2 class="section-title">Menu Management</h2>
+
+                    <!-- Mess and Day Selector -->
+                    <div class="selector-bar">
+                        <div class="selector-group">
+                            <label for="admin-mess-select">Select Mess:</label>
+                            <select id="admin-mess-select" class="select-input">
+                                <option value="main-mess">Main Mess</option>
+                                <option value="special-mess">Special Mess</option>
+                                <option value="hostel-1-mess">Hostel 1 Mess</option>
+                                <option value="hostel-2-mess">Hostel 2 Mess</option>
+                            </select>
+                        </div>
+                        <div class="selector-group">
+                            <label for="admin-day-select">Select Day:</label>
+                            <select id="admin-day-select" class="select-input">
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <button id="save-menu-btn" class="btn-success">💾 Save Changes</button>
+                    </div>
+
+                    <!-- Menu Editor -->
+                    <div class="menu-editor">
+                        <!-- Breakfast -->
+                        <div class="meal-editor">
+                            <div class="meal-header">
+                                <h3>🌅 Breakfast</h3>
+                                <button class="btn-add" data-meal="breakfast">+ Add Item</button>
+                            </div>
+                            <div id="breakfast-editor" class="items-list"></div>
+                        </div>
+
+                        <!-- Lunch -->
+                        <div class="meal-editor">
+                            <div class="meal-header">
+                                <h3>☀️ Lunch</h3>
+                                <button class="btn-add" data-meal="lunch">+ Add Item</button>
+                            </div>
+                            <div id="lunch-editor" class="items-list"></div>
+                        </div>
+
+                        <!-- Snacks -->
+                        <div class="meal-editor">
+                            <div class="meal-header">
+                                <h3>🌆 Snacks</h3>
+                                <button class="btn-add" data-meal="snacks">+ Add Item</button>
+                            </div>
+                            <div id="snacks-editor" class="items-list"></div>
+                        </div>
+
+                        <!-- Dinner -->
+                        <div class="meal-editor">
+                            <div class="meal-header">
+                                <h3>🌙 Dinner</h3>
+                                <button class="btn-add" data-meal="dinner">+ Add Item</button>
+                            </div>
+                            <div id="dinner-editor" class="items-list"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="panel-section">
+                    <h2 class="section-title">Analytics</h2>
+                    <div class="analytics-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-value">1,234</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📱</div>
+                            <div class="stat-value">856</div>
+                            <div class="stat-label">Active Today</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🍽️</div>
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Active Messes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-value">28</div>
+                            <div class="stat-label">Menu Items Today</div>
+                        </div>
+                    </div>
+                    <div class="info-message">
+                        <p>📊 Detailed analytics will be available once Firebase is configured.</p>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="panel-section">
+                    <h2 class="section-title">Settings</h2>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>App Name</label>
+                            <input type="text" value="Daily Gamble" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Theme Color</label>
+                            <input type="color" value="#8B2E0B" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Enable Notifications</label>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <button class="btn-primary">Save Settings</button>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

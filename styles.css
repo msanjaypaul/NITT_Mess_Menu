@@ -1,0 +1,456 @@
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Extracted from reference image - warm beige/sand tones */
+    --beige-primary: #C5B8A0;
+    --beige-secondary: #B0A390;
+    --beige-light: #D8CFC0;
+    
+    /* Muted mustard yellow - accents only */
+    --yellow-accent: #D4B860;
+    --yellow-soft: #E8D492;
+    
+    /* Core neutrals */
+    --black: #1A1A1A;
+    --white: #FFFFFF;
+    --off-white: #FAFAF8;
+    
+    /* Text colors */
+    --text-dark: #1A1A1A;
+    --text-medium: #4A4A4A;
+    --text-light: #7A7A7A;
+    
+    /* Design system */
+    --border-radius: 16px;
+    --border-radius-sm: 12px;
+    --border-radius-lg: 20px;
+    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+    background: var(--beige-primary);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Splash Screen */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--beige-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: splashFadeOut 2s ease-in-out forwards;
+}
+
+@keyframes splashFadeOut {
+    0% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.logo-container {
+    animation: zoomInFull 2s ease-in-out;
+}
+
+.splash-logo {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes zoomInFull {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Main App */
+.main-app {
+    min-height: 100vh;
+    padding-bottom: 60px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-in-out 1.8s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.app-header {
+    background: var(--black);
+    color: var(--white);
+    padding: 20px 24px;
+    box-shadow: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.app-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.mess-selector {
+    position: relative;
+}
+
+.mess-dropdown {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-sm);
+    padding: 10px 36px 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFFFFF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: all 0.2s ease;
+}
+
+.mess-dropdown:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.mess-dropdown option {
+    background: var(--black);
+    color: var(--white);
+}
+
+/* Day Selector */
+.day-selector-container {
+    background: var(--white);
+    padding: 20px 24px;
+    box-shadow: none;
+    position: sticky;
+    top: 72px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.day-arrow {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--black);
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+}
+
+.day-arrow:hover {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.day-display {
+    text-align: center;
+    min-width: 150px;
+}
+
+.day-display-name {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--black);
+    text-transform: capitalize;
+    letter-spacing: -0.5px;
+}
+
+/* Menu Content */
+.menu-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.meal-section {
+    margin-bottom: 32px;
+}
+
+.meal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--black);
+}
+
+.meal-icon {
+    font-size: 24px;
+}
+
+.meal-time {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-medium);
+    background: var(--beige-light);
+    padding: 6px 14px;
+    border-radius: var(--border-radius-sm);
+}
+
+.menu-items {
+    display: grid;
+    gap: 12px;
+}
+
+.menu-item-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 18px 20px;
+    box-shadow: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid var(--yellow-accent);
+}
+
+.menu-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+.item-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+}
+
+.item-description {
+    font-size: 13px;
+    color: var(--text-medium);
+    line-height: 1.5;
+}
+
+.item-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+
+.badge-veg {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.badge-non-veg {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.badge-special {
+    background: #FFF3E0;
+    color: #E65100;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--text-light);
+}
+
+.empty-state-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Footer */
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    padding: 14px 20px;
+    text-align: center;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.08);
+    z-index: 98;
+}
+
+.footer-text {
+    font-size: 12px;
+    color: var(--text-medium);
+}
+
+#last-updated {
+    font-weight: 600;
+    color: var(--black);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 20px;
+    }
+    
+    .mess-dropdown {
+        font-size: 12px;
+        padding: 6px 28px 6px 10px;
+    }
+    
+    .day-card {
+        min-width: 50px;
+        padding: 10px 6px;
+    }
+    
+    .day-name {
+        font-size: 11px;
+    }
+    
+    .day-date {
+        font-size: 18px;
+    }
+}
+
+/* PWA Install Prompt */
+.install-prompt {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    right: 20px;
+    background: var(--yellow-accent);
+    color: var(--black);
+    padding: 18px 20px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.install-prompt-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.install-btn {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.install-btn:active {
+    transform: scale(0.96);
+}
